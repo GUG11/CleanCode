@@ -4,6 +4,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.text.ParseException;
+
 /**
  * Unit test for simple App.
  */
@@ -31,8 +33,18 @@ public class ArgsTest
     /**
      * Rigourous Test :-)
      */
-    public void testApp()
+    public void testBooleanArgs()
     {
-        assertTrue( true );
+      String schema = "l,t,p";
+      String[] arguments = new String[]{"-lpx"};
+      try {
+        Args arg = new Args(schema, arguments);
+        assertTrue(arg.getBoolean('l'));
+        assertTrue(arg.getBoolean('p'));
+        assertFalse(arg.getBoolean('t'));
+        assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
+      } catch (ParseException e) {
+        fail(e.toString());
+      }
     }
 }
