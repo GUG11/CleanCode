@@ -43,8 +43,6 @@ public class ArgsTest
         assertTrue(arg.getBoolean('p'));
         assertFalse(arg.getBoolean('t'));
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
-      } catch (ParseException e) {
-        fail(e.toString());
       } catch (Exception e) {
         fail(e.toString());
       }
@@ -58,8 +56,6 @@ public class ArgsTest
         Args arg = new Args(schema, arguments);
         assertEquals(arg.getString('d'), "/usr/local/bin");
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
-      } catch (ParseException e) {
-        fail(e.toString());
       } catch (Exception e) {
         fail(e.toString());
       }
@@ -73,8 +69,20 @@ public class ArgsTest
         Args arg = new Args(schema, arguments);
         assertEquals(arg.getInt('n'), 145);
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
-      } catch (ParseException e) {
+      } catch (Exception e) {
         fail(e.toString());
+      }
+    }
+
+    public void testMixedArgs()
+    {
+      String schema = "l,d*,p#";
+      String[] arguments = new String[]{"-l", "-d", "/usr/lib", "-p", "8080"};
+      try {
+        Args arg = new Args(schema, arguments);
+        assertEquals(arg.getBoolean('l'), true);
+        assertEquals(arg.getInt('p'), 8080);
+        assertEquals(arg.getString('d'), "/usr/lib");
       } catch (Exception e) {
         fail(e.toString());
       }
