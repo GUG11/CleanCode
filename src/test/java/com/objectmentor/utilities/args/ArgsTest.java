@@ -9,7 +9,7 @@ import java.text.ParseException;
 /**
  * Unit test for simple App.
  */
-public class ArgsTest 
+public class ArgsTest
     extends TestCase
 {
     /**
@@ -44,6 +44,38 @@ public class ArgsTest
         assertFalse(arg.getBoolean('t'));
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
       } catch (ParseException e) {
+        fail(e.toString());
+      } catch (Exception e) {
+        fail(e.toString());
+      }
+    }
+
+    public void testStringArgs()
+    {
+      String schema = "d*,f*";
+      String[] arguments = new String[]{"-d", "/usr/local/bin", "-x", "/usr/bin"};
+      try {
+        Args arg = new Args(schema, arguments);
+        assertEquals(arg.getString('d'), "/usr/local/bin");
+        assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
+      } catch (ParseException e) {
+        fail(e.toString());
+      } catch (Exception e) {
+        fail(e.toString());
+      }
+    }
+
+    public void testIntegerArgs()
+    {
+      String schema = "n#,p#";
+      String[] arguments = new String[]{"-n", "145", "-x", "123"};
+      try {
+        Args arg = new Args(schema, arguments);
+        assertEquals(arg.getInt('n'), 145);
+        assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
+      } catch (ParseException e) {
+        fail(e.toString());
+      } catch (Exception e) {
         fail(e.toString());
       }
     }
