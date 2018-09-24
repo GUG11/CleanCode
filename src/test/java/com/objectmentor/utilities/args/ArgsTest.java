@@ -42,6 +42,8 @@ public class ArgsTest
         assertTrue(arg.getBoolean('l'));
         assertTrue(arg.getBoolean('p'));
         assertFalse(arg.getBoolean('t'));
+        assertFalse(arg.isValid());
+        assertEquals(arg.cardinality(), 2);
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
       } catch (Exception e) {
         fail(e.toString());
@@ -55,6 +57,8 @@ public class ArgsTest
       try {
         Args arg = new Args(schema, arguments);
         assertEquals(arg.getString('d'), "/usr/local/bin");
+        assertFalse(arg.isValid());
+        assertEquals(arg.cardinality(), 1);
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
       } catch (Exception e) {
         fail(e.toString());
@@ -68,6 +72,8 @@ public class ArgsTest
       try {
         Args arg = new Args(schema, arguments);
         assertEquals(arg.getInt('n'), 145);
+        assertFalse(arg.isValid());
+        assertEquals(arg.cardinality(), 1);
         assertEquals(arg.errorMessage(), "Argument(s) -x unexpected.");
       } catch (Exception e) {
         fail(e.toString());
@@ -83,6 +89,8 @@ public class ArgsTest
         assertEquals(arg.getBoolean('l'), true);
         assertEquals(arg.getInt('p'), 8080);
         assertEquals(arg.getString('d'), "/usr/lib");
+        assertTrue(arg.isValid());
+        assertEquals(arg.cardinality(), 3);
       } catch (Exception e) {
         fail(e.toString());
       }
