@@ -4,8 +4,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import java.text.ParseException;
-
 /**
  * Unit test for simple App.
  */

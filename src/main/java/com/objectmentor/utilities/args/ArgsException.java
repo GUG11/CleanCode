@@ -19,6 +19,11 @@ public class ArgsException extends Exception {
     this.errorParameter = errorParameter;
   }
 
+  public ArgsException(ErrorCode errorCode, char errorArgumentId) {
+    this.errorCode = errorCode;
+    this.errorArgumentId= errorArgumentId;
+  }
+
   public ArgsException(ErrorCode errorCode, char errorArgumentId, String errorParameter) {
     this.errorCode = errorCode;
     this.errorParameter = errorParameter;
